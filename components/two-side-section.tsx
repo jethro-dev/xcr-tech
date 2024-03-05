@@ -1,7 +1,14 @@
 "use client";
 import { useInView, InView } from "react-intersection-observer";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import TwoSideItem from "./two-side-item";
 
 type Props = {};
 
@@ -35,31 +42,9 @@ export const TwoSideSection = (props: Props) => {
   return (
     <section className="dark bg-black py-12 md:py-24 lg:py-32 relative">
       <div className="container max-w-6xl flex gap-32 relative items-start">
-        <div className="basis-1/2 pt-40 pb-40">
+        <div className="basis-1/2 pt-40 pb-40 flex flex-col gap-80">
           {data.map((item, i) => (
-            <div
-              key={item._id}
-              className={`${
-                i !== data.length - 1 && "h-[100vh] max-h-[40rem]"
-              }`}
-            >
-              <InView
-                as={"div"}
-                className=""
-                threshold={1}
-                onChange={(inView, entry) => inView && setIndex(i)}
-              >
-                <p className="text-primary font-semibold text-base">
-                  Clear your mind
-                </p>
-                <h3 className="mt-4 text-foreground font-bold text-4xl">
-                  {item.title}
-                </h3>
-                <p className="mt-4 text-muted-foreground font-normal text-base">
-                  {item.description}
-                </p>
-              </InView>
-            </div>
+            <TwoSideItem key={item._id} {...item} />
           ))}
         </div>
         <div className="basis-1/2 border rounded-lg sticky top-[25vh] aspect-square overflow-hidden">
