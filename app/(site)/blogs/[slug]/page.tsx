@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import { urlForImage } from "@/sanity/lib/image";
 import Image from "next/image";
 import { Avatar } from "@/components/avatar";
+import { generateAuthorText } from "@/lib/utils";
 
 type Props = {
   params: { slug: string };
@@ -85,7 +86,7 @@ const BlogPage = async ({ params }: Props) => {
                 Related readings
               </h3>
               {blog.related.map((blog) => (
-                <div className="mt-4">
+                <div key={blog._id} className="mt-4">
                   <Link href={`/blogs/${blog.slug}`}>
                     <h4 className="font-medium hover:underline cursor-pointer">
                       {blog.title}
@@ -100,13 +101,20 @@ const BlogPage = async ({ params }: Props) => {
                         className="object-cover object-top rounded-full"
                       />
                     </div> */}
-                    <div className="mt-4">
-                      <div className="flex items-center">
+                    <div className="mt-4 flex items-center gap-2">
+                      <div className="flex items-center -space-x-4">
                         {blog.author.map((member) => (
-                          <Avatar src={member} alt="" name="" />
+                          <Avatar
+                            src={urlForImage(member.image.asset)}
+                            alt={member.name}
+                            name={member.name}
+                            size={30}
+                          />
                         ))}
                       </div>
-                      <p>{blog.author.join(",")}</p>
+                      <p className="text-sm font-normal">
+                        {generateAuthorText(blog.author)}
+                      </p>
                     </div>
                   </div>
                 </div>
