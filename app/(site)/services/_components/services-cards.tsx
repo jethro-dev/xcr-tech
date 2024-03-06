@@ -17,7 +17,7 @@ export const ServicesCards = async (props: Props) => {
             variant={"outline"}
             className="bg-white cursor-default pointer-events-none even select-none"
           >
-            🥇 Placeholder
+            🥇 No.1 in Education
           </Badge>
           <h1 className="mt-10 text-3xl font-bold tracking-tighter sm:text-5xl uppercase font-akony text-foreground">
             XR in education and training
