@@ -105,6 +105,7 @@ const BlogPage = async ({ params }: Props) => {
                       <div className="flex items-center -space-x-4">
                         {blog.author.map((member) => (
                           <Avatar
+                            key={member._id}
                             src={urlForImage(member.image.asset)}
                             alt={member.name}
                             name={member.name}
